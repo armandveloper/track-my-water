@@ -8,6 +8,7 @@ const SocketService = require('./services/socket.service');
 app.set('socketService', new SocketService(server));
 
 // Middlewares
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname, 'public', 'index.html'));

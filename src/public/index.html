@@ -4,15 +4,124 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Sistema de nivel de agua</title>
+		<title>Sistema Nivel de Agua</title>
+		<style>
+			:root {
+				--tank-width: 250px;
+			}
+			body {
+				padding-top: 10vh;
+			}
+			.tank {
+				position: relative;
+				overflow: hidden;
+				margin: 0 auto;
+				width: var(--tank-width);
+				height: 300px;
+				border-radius: 50px/25px;
+				background-color: rgba(160, 160, 160, 0.5);
+			}
+			.tank:before {
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: var(--tank-width);
+				height: 50px;
+				border-radius: 50px/25px;
+				background-color: rgba(160, 160, 160, 0.2);
+				content: '';
+			}
+
+			.tank:after {
+				position: absolute;
+				left: 0;
+				bottom: 0;
+				width: var(--tank-width);
+				height: 50px;
+				border-radius: 50px/25px;
+				background-color: rgba(160, 160, 160, 0.4);
+				content: '';
+			}
+
+			.water {
+				position: absolute;
+				left: 0;
+				bottom: 0;
+				width: var(--tank-width);
+				height: 0;
+				padding-top: 50px;
+				border-radius: 50px/25px;
+				background-color: rgba(0, 160, 160, 0.5);
+				transition: 0.3s linear;
+			}
+			.water:before {
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: var(--tank-width);
+				height: 50px;
+				border-radius: 50px/25px;
+				background-color: rgba(0, 160, 160, 0.2);
+				content: '';
+			}
+
+			.water:after {
+				position: absolute;
+				left: 0;
+				bottom: 0;
+				width: var(--tank-width);
+				height: 50px;
+				border-radius: 50px/25px;
+				background-color: rgba(0, 160, 160, 0.4);
+				content: '';
+			}
+			.water--empty {
+				bottom: -50px;
+			}
+		</style>
 	</head>
 	<body>
-		<h1>Monitoreo del nivel de agua</h1>
+		<div class="tank">
+			<div class="water water--empty" id="water"></div>
+		</div>
 		<script src="/socket.io/socket.io.js"></script>
+		<script src="https://js.pusher.com/beams/1.0/push-notifications-cdn.js"></script>
 		<script>
 			const socket = io();
 			socket.on('waterTank:change', (record) => {
-				console.log(record);
+				changeWaterLevel(record.waterLevel);
+			});
+			const water = document.getElementById('water');
+			function changeWaterLevel(level) {
+				if (level > 0 && level <= 100) {
+					water.style.height = `${250 * (level / 100)}px`;
+					water.classList.remove('water--empty');
+				} else if (level === 0) {
+					water.style.height = '0px';
+					water.classList.add('water--empty');
+				}
+			}
+			const beamsClient = new PusherPushNotifications.Client({
+				instanceId: 'a7dc2222-eb7a-4db9-872c-505ed897b2f3',
+			});
+
+			beamsClient
+				.start()
+				.then(() => beamsClient.addDeviceInterest('hello'))
+				.then(() =>
+					console.log('Successfully registered and subscribed!')
+				)
+				.catch(console.error);
+			document.addEventListener('DOMContentLoaded', async () => {
+				try {
+					const response = await fetch(
+						`${location.href}api/waterTank/last`
+					);
+					const { record } = await response.json();
+					changeWaterLevel(record.waterLevel);
+				} catch (err) {
+					console.log(err);
+				}
 			});
 		</script>
 	</body>
