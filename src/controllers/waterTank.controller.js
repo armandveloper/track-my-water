@@ -1,6 +1,6 @@
 const { request, response } = require('express');
 const WaterTank = require('../models/WaterTank');
-const { sendNotification } = require('../helpers/notifications');
+const { shouldNotifSend } = require('../helpers/notifications');
 
 exports.getRecords = async (req = request, res = response) => {
 	try {
@@ -34,12 +34,7 @@ exports.recordWaterLevel = async (req = request, res = response) => {
 			createdAt: new Date(),
 		});
 		req.app.get('socketService').emiter('waterTank:change', record);
-		if (waterLevel < 50) {
-			sendNotification({
-				title: `Nivel de agua: ${waterLevel}%`,
-				body: `A su contenedor de agua le queda ${waterLevel}% de su capacidad. Se aconseja tener cuidado en el consumo`,
-			});
-		}
+		shouldNotifSend(waterLevel);
 		res.status(201).json({ ok: true, record });
 	} catch (err) {
 		console.log(err);
