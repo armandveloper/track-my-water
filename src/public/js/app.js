@@ -14,6 +14,8 @@ function changeWaterLevel(level) {
 		water.classList.add('water--empty');
 	}
 }
+
+// Push Notifications
 const beamsClient = new PusherPushNotifications.Client({
 	instanceId: 'a7dc2222-eb7a-4db9-872c-505ed897b2f3',
 });

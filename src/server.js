@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const flash = require('connect-flash');
+// Crear servidor
 const app = express();
 const server = require('http').createServer(app);
 const SocketService = require('./services/socket.service');
