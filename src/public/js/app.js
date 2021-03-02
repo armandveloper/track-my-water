@@ -38,3 +38,26 @@ document.addEventListener('DOMContentLoaded', async () => {
 		navigator.serviceWorker.register('service-worker.js');
 	}
 });
+
+let deferredPrompt;
+
+const $downloadBtn = document.getElementById('btn-install');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+	// Stash the event so it can be triggered later.
+	deferredPrompt = e;
+
+	// Make the Download App button visible.
+	$downloadBtn.style.display = 'inline-block';
+});
+$downloadBtn.addEventListener('click', (e) => {
+	deferredPrompt.prompt(); // This will display the Add to Homescreen dialog.
+	deferredPrompt.userChoice.then((choiceResult) => {
+		if (choiceResult.outcome === 'accepted') {
+			console.log('User accepted the A2HS prompt');
+		} else {
+			console.log('User dismissed the A2HS prompt');
+		}
+		deferredPrompt = null;
+	});
+});
