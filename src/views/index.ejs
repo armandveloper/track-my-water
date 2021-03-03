@@ -2,19 +2,23 @@
 <html lang="es">
 	<%- include('partials/head'); %>
 
-	<body class="d-flex flex-column min-vh-100">
-		<%- include('partials/navigation'); %>
-		<main class="flex-grow-1 mt-5">
-			<div class="container pt-5">
-				<h1 class="h2 text-center mb-5">Nivel de Agua</h1>
+	<body class="d-flex flex-column min-vh-100 bg-grad">
+		<section id="burbujas" class="flex-grow-1">
+			<%- include('partials/navigation'); %>
+			<main class="mt-5">
+				<div class="container mb-5">
+					<h1 class="h2 text-center">Nivel de Agua</h1>
+				</div>
 				<div class="tank">
 					<div class="water water--empty" id="water"></div>
 				</div>
-				<a href="datos" class="btn btn-primary" style="float: right"
-					>Mostrar últimos registros</a
-				>
-			</div>
-		</main>
+				<div class="container mt-5 text-end py-3">
+					<a href="/registros" class="btn btn-outline-light">
+						Mostrar últimos registros
+					</a>
+				</div>
+			</main>
+		</section>
 
 		<%- include('partials/footer'); %> <%-
 		include('partials/scripts-private'); %>

@@ -10,7 +10,7 @@ exports.renderHome = (req, res) => {
 		ogDescription:
 			'Track My Water es una aplicación para monitorear el nivel de agua de sus contenedores. En esta pantalla podrá ver en tiempo real cuál es el estado de éstos',
 		ogUrl: `${res.locals.url}/`,
-		ogImage: `${res.locals.url}/icons/icon-512x512.png`,
+		ogImage: `${res.locals.url}/img/desktop-preview.png`,
 	});
 };
 

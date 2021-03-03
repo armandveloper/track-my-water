@@ -1,5 +1,5 @@
 <% if (errorFeedback.length > 0) { %>
-<div class="toast-container mx-auto mt-3">
+<div class="toast-container position-absolute top-0 end-0 p-3">
 	<% errorFeedback.forEach(msg => { %>
 	<div
 		class="toast align-items-center text-white bg-danger border-0 fade show"
@@ -20,7 +20,7 @@
 	<% }); %>
 </div>
 <% } %> <% if (successFeedback.length > 0) { %>
-<div class="toast-container mx-auto mt-3">
+<div class="toast-container position-absolute top-0 end-0 p-3">
 	<% successFeedback.forEach(msg => { %>
 	<div
 		class="toast align-items-center text-white bg-success border-0 fade show"
@@ -41,7 +41,7 @@
 	<% }); %>
 </div>
 <% } %> <% if (error.length > 0) { %>
-<div class="toast-container mx-auto mt-3">
+<div class="toast-container position-absolute top-0 end-0 p-3">
 	<% error.forEach(msg => { %>
 	<div
 		class="toast align-items-center text-white bg-danger border-0 fade show"

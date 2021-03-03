@@ -9,7 +9,7 @@ exports.renderLogin = (req, res) => {
 		ogDescription:
 			'Para comenzar a monitorear el agua de sus contenedores inicie sesión',
 		ogUrl: `${res.locals.url}/login`,
-		ogImage: `${res.locals.url}/icons/icon-512x512.png`,
+		ogImage: `${res.locals.url}/img/login-preview.png`,
 	});
 };
 
@@ -20,7 +20,7 @@ exports.renderRegister = (req, res) => {
 		ogDescription:
 			'Crea tu usuario y comienza a monitorear el agua de tus contenedores',
 		ogUrl: `${res.locals.url}/registro`,
-		ogImage: `${res.locals.url}/icons/icon-512x512.png`,
+		ogImage: `${res.locals.url}/img/register-preview.png`,
 	});
 };
 

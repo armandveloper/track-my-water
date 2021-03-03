@@ -2,8 +2,8 @@
 	"name": "Track My Water",
 	"short_name": "Track My Water",
 	"description": "Aplicación para monitorear el nivel de agua de sus contenedores",
-	"background_color": "#121212",
-	"theme_color": "#121212",
+	"background_color": "#1d3557",
+	"theme_color": "#1d3557",
 	"display": "standalone",
 	"start_url": ".",
 	"icons": [
