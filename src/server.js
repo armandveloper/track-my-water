@@ -38,6 +38,7 @@ app.use((req, res, next) => {
 	res.locals.errorFeedback = req.flash('errorFeedback');
 	res.locals.error = req.flash('error');
 	res.locals.user = req.user || null;
+	res.locals.url = process.env.SERVER_URL;
 	next();
 });
 // Inicializa Passport y middleware de sesiones

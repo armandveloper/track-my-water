@@ -15,6 +15,17 @@ function changeWaterLevel(level) {
 	}
 }
 
+async function loadLastWaterRecord() {
+	try {
+		const response = await fetch(`${location.href}api/waterTank/last`);
+		const { record } = await response.json();
+		if (!record) throw 'No hay registros aún';
+		changeWaterLevel(record.waterLevel);
+	} catch (err) {
+		console.log(err);
+	}
+}
+
 // Push Notifications
 const beamsClient = new PusherPushNotifications.Client({
 	instanceId: 'a7dc2222-eb7a-4db9-872c-505ed897b2f3',
@@ -26,13 +37,10 @@ beamsClient
 	.then(() => console.log('Successfully registered and subscribed!'))
 	.catch(console.error);
 
-document.addEventListener('DOMContentLoaded', async () => {
-	try {
-		const response = await fetch(`${location.href}api/waterTank/last`);
-		const { record } = await response.json();
-		changeWaterLevel(record.waterLevel);
-	} catch (err) {
-		console.log(err);
+document.addEventListener('DOMContentLoaded', () => {
+	// Si es la página de monitoreo, consulta el último registro al cargarse
+	if (location.pathname === '/') {
+		loadLastWaterRecord();
 	}
 	if (navigator.serviceWorker) {
 		navigator.serviceWorker.register('service-worker.js');
@@ -44,19 +52,18 @@ let deferredPrompt;
 const $downloadBtn = document.getElementById('btn-install');
 if ($downloadBtn) {
 	window.addEventListener('beforeinstallprompt', (e) => {
+		e.preventDefault();
 		// Almacena el objeto del evento para posteriormente disparar el prompt de instalación
 		deferredPrompt = e;
 		// Muestra el botón para instalar
-		$downloadBtn.style.display = 'inline-block';
+		$downloadBtn.classList.remove('d-none');
 	});
 
 	$downloadBtn.addEventListener('click', (e) => {
-		e.preventDefault();
 		// Muestra el dialogo para instalar
 		deferredPrompt.prompt();
 		deferredPrompt.userChoice.then((choiceResult) => {
 			if (choiceResult.outcome === 'accepted') {
-				console.log('User accepted the A2HS prompt');
 				$downloadBtn.remove();
 			} else {
 				console.log('User dismissed the A2HS prompt');

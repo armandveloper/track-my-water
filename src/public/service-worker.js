@@ -22,7 +22,6 @@ self.addEventListener('install', (e) => {
 	// Al instalarse el SW agrega los archivos al cache
 	e.waitUntil(
 		caches.open(cacheName).then((cache) => {
-			console.log('Almacenando en caché');
 			return cache.addAll(appShellFiles);
 		})
 	);

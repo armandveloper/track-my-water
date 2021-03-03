@@ -5,12 +5,22 @@ const User = require('../models/User');
 exports.renderLogin = (req, res) => {
 	res.render('login', {
 		title: 'Iniciar Sesión en Track My Water',
+		ogTitle: 'Iniciar sesión en Track My Water',
+		ogDescription:
+			'Para comenzar a monitorear el agua de sus contenedores inicie sesión',
+		ogUrl: `${res.locals.url}/login`,
+		ogImage: `${res.locals.url}/icons/icon-512x512.png`,
 	});
 };
 
 exports.renderRegister = (req, res) => {
 	res.render('register', {
 		title: 'Regístrate en Track My Water',
+		ogTitle: 'Regístrate en Track My Water',
+		ogDescription:
+			'Crea tu usuario y comienza a monitorear el agua de tus contenedores',
+		ogUrl: `${res.locals.url}/registro`,
+		ogImage: `${res.locals.url}/icons/icon-512x512.png`,
 	});
 };
 
