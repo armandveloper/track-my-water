@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+	<%- include('partials/head'); %>
+
+	<body class="d-flex flex-column min-vh-100">
+		<%- include('partials/navigation'); %>
+		<main class="flex-grow-1 mt-5">
+			<div class="container pt-5">
+				<h1 class="h2 text-center mb-5">Últimos Registros</h1>
+
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th scope="col">Registro</th>
+							<th scope="col">Nivel</th>
+							<th scope="col">Hora</th>
+							<th scope="col">Fecha</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row">1</th>
+							<td>25%</td>
+							<td>16:00</td>
+							<td>02-03-2021</td>
+						</tr>
+						<tr>
+							<th scope="row">2</th>
+							<td>50%</td>
+							<td>17:00</td>
+							<td>02-03-2021</td>
+						</tr>
+						<tr>
+							<th scope="row">3</th>
+							<td>75%</td>
+							<td>18:00</td>
+							<td>02-02-2021</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<br />
+		</main>
+
+		<%- include('partials/footer'); %> <%-
+		include('partials/scripts-private'); %>
+	</body>
+</html>

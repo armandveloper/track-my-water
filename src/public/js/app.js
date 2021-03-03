@@ -42,22 +42,26 @@ document.addEventListener('DOMContentLoaded', async () => {
 let deferredPrompt;
 
 const $downloadBtn = document.getElementById('btn-install');
-
-window.addEventListener('beforeinstallprompt', (e) => {
-	// Stash the event so it can be triggered later.
-	deferredPrompt = e;
-
-	// Make the Download App button visible.
-	$downloadBtn.style.display = 'inline-block';
-});
-$downloadBtn.addEventListener('click', (e) => {
-	deferredPrompt.prompt(); // This will display the Add to Homescreen dialog.
-	deferredPrompt.userChoice.then((choiceResult) => {
-		if (choiceResult.outcome === 'accepted') {
-			console.log('User accepted the A2HS prompt');
-		} else {
-			console.log('User dismissed the A2HS prompt');
-		}
-		deferredPrompt = null;
+if ($downloadBtn) {
+	window.addEventListener('beforeinstallprompt', (e) => {
+		// Almacena el objeto del evento para posteriormente disparar el prompt de instalación
+		deferredPrompt = e;
+		// Muestra el botón para instalar
+		$downloadBtn.style.display = 'inline-block';
 	});
-});
+
+	$downloadBtn.addEventListener('click', (e) => {
+		e.preventDefault();
+		// Muestra el dialogo para instalar
+		deferredPrompt.prompt();
+		deferredPrompt.userChoice.then((choiceResult) => {
+			if (choiceResult.outcome === 'accepted') {
+				console.log('User accepted the A2HS prompt');
+				$downloadBtn.remove();
+			} else {
+				console.log('User dismissed the A2HS prompt');
+			}
+			deferredPrompt = null;
+		});
+	});
+}

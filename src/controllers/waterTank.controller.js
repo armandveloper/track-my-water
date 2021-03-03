@@ -2,6 +2,20 @@ const { request, response } = require('express');
 const WaterTank = require('../models/WaterTank');
 const { shouldNotifSend } = require('../helpers/notifications');
 
+exports.renderHome = (req, res) => {
+	res.render('index', {
+		title: 'Monitoreo | Track My Water',
+		pageName: 'home',
+	});
+};
+
+exports.renderRecords = (req, res) => {
+	res.render('records', {
+		title: 'Últimos Registros | Track My Water',
+		pageName: 'records',
+	});
+};
+
 exports.getRecords = async (req = request, res = response) => {
 	try {
 		const records = await WaterTank.find();

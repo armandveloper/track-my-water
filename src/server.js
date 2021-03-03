@@ -12,6 +12,9 @@ const passport = require('./config/passport');
 
 // Servicio de socket.io para emitir eventos
 app.set('socketService', new SocketService(server));
+// Template engine y carpeta de vistas
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
 // Middlewares
 // Archivos estáticos
@@ -30,6 +33,13 @@ app.use(
 	})
 );
 app.use(flash());
+app.use((req, res, next) => {
+	res.locals.successFeedback = req.flash('successFeedback');
+	res.locals.errorFeedback = req.flash('errorFeedback');
+	res.locals.error = req.flash('error');
+	res.locals.user = req.user || null;
+	next();
+});
 // Inicializa Passport y middleware de sesiones
 app.use(passport.initialize());
 app.use(passport.session());

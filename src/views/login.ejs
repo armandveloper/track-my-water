@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+	<%- include('partials/head'); %>
+	<body class="auth-page">
+    <%- include('partials/alerts'); %>
+		
+    <div class="mt-5 auth-form-wrapper">
+		  <form action="/login" method="POST" class="bg-white auth-form py-3 px-3 needs-validation" autocomplete="off" novalidate>
+        <h1 class="h3 text-center mb-3">Bienvenido</h3>
+					<div class="mb-3">
+						<label class="form-label" for="user"  >Usuario</label>
+						<input
+							type="text"
+							class="form-control"
+							id="user"
+							placeholder="Ingrese su nombre"
+              name="username"
+              required
+						/>
+            <div class="invalid-feedback">
+              Por favor, ingresa tu nombre de usuario
+            </div>
+					</div>
+					<div class="mb-3">
+						<label class="form-label" for="pwd">Contraseña</label>
+						<input
+							type="password"
+							class="form-control"
+							id="pwd"
+							placeholder="Ingrese su contraseña"
+              name="password"
+              required
+						/>
+            <div class="invalid-feedback">
+              Por favor, ingresa tu contraseña 
+            </div>
+					</div>
+          <button
+              type="submit"
+              class="btn btn-primary mt-2 m-button w-100"
+            >
+              Acceder
+          </button>
+
+        </form>
+      </div>
+
+    <%- include('partials/scripts'); %>
+      <script>
+        const toastElList = [].slice.call(document.querySelectorAll('.toast'))
+        if (toastElList.length > 0) {
+          toastElList.map(function (toastEl) {
+            return new bootstrap.Toast(toastEl)
+          })
+        }
+
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+          'use strict'
+
+          // Fetch all the forms we want to apply custom Bootstrap validation styles to
+          var forms = document.querySelectorAll('.needs-validation')
+
+          // Loop over them and prevent submission
+          Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+              form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                  event.preventDefault()
+                  event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+              }, false)
+            })
+        })()
+      </script>
+	</body>
+</html>

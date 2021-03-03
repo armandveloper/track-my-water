@@ -1,6 +1,6 @@
 importScripts('https://js.pusher.com/beams/service-worker.js');
 
-const cacheName = 'TrackMyWater-v1';
+const cacheName = 'TrackMyWater-v2';
 const appShellFiles = [
 	'/offline.html',
 	'https://js.pusher.com/beams/service-worker.js',
@@ -8,6 +8,7 @@ const appShellFiles = [
 	'/js/app.js',
 	'/socket.io/socket.io.js',
 	'/icons/icon-72x72.png',
+	'/favicon.ico',
 	'/icons/icon-96x96.png',
 	'/icons/icon-128x128.png',
 	'/icons/icon-144x144.png',
